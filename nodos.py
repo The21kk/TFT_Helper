@@ -16,6 +16,10 @@ class Nodo:
         return (self.campeones, self.sinergias, self.objetos, self.oro, self.salud, self.posicion) == \
                (other.campeones, other.sinergias, other.objetos, other.oro, other.salud, other.posicion)
 
+    def __lt__(self, other):
+        # Ordenar primero por el número de campeones y luego por el oro (esto es una sugerencia y se puede ajustar)
+        return (len(self.campeones), self.oro) < (len(other.campeones), other.oro)
+
 class Arista:
     def __init__(self, costo, accion, nodo_destino):
         self.costo = costo

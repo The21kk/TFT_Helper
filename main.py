@@ -3,7 +3,6 @@
 from nodos import Nodo
 from grafo import Grafo
 from busqueda import busqueda_a_estrella
-from generadores import generar_transiciones_compra, generar_transiciones_objetos
 
 # Nodo objetivo
 nodo_objetivo = Nodo(
@@ -29,25 +28,12 @@ nodo_inicial = Nodo(
 grafo = Grafo()
 grafo.agregar_nodo(nodo_inicial)
 
-# Expansión del grafo
-frontera = [nodo_inicial]
-while frontera:
-    nodo_actual = frontera.pop(0)
-    
-    generar_transiciones_compra(grafo, nodo_actual)
-    generar_transiciones_objetos(grafo, nodo_actual)
-
-    for arista in grafo.obtener_vecinos(nodo_actual):
-        if arista.nodo_destino not in frontera:
-            frontera.append(arista.nodo_destino)
-
-# Ejecutar búsqueda A*
-camino_optimo = busqueda_a_estrella(grafo, nodo_inicial, nodo_objetivo)
+# Ejecutar búsqueda A* con opción de depuración activada o desactivada
+debug_mode = False  # Cambia a True para activar la depuración
+camino_optimo = busqueda_a_estrella(grafo, nodo_inicial, nodo_objetivo, debug=debug_mode)
 
 # Mostrar resultados
 if camino_optimo:
-    print("Camino encontrado:")
-    for paso in camino_optimo:
-        print(f"Campeones: {paso.campeones}, Sinergias: {paso.sinergias}, Objetos: {paso.objetos}, Oro: {paso.oro}")
+    print("Camino encontrado hacia la composición meta.")
 else:
     print("No se encontró un camino hacia la composición meta.")
