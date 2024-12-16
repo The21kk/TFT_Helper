@@ -1,13 +1,15 @@
-# busqueda.py
-
 import heapq
 from heuristica import heuristica
 from generadores import expandir_nodo
 
-def busqueda_a_estrella(grafo, nodo_inicial, nodo_objetivo, debug=False):
+def busqueda_a_estrella(grafo, nodo_inicial, nodo_objetivo, tienda_actual, debug=False):
+    """
+    Implementación del algoritmo de búsqueda A* para encontrar el camino óptimo hacia un nodo objetivo.
+
+    """
     open_set = []
     heapq.heappush(open_set, (0, nodo_inicial))
-    
+
     costo_acumulado = {nodo_inicial: 0}
     padres = {nodo_inicial: None}
 
@@ -27,8 +29,8 @@ def busqueda_a_estrella(grafo, nodo_inicial, nodo_objetivo, debug=False):
                 print("\n¡Objetivo alcanzado solo con campeones! Reconstruyendo el camino.")
             return reconstruir_camino(padres, nodo_actual)
 
-        # Expande el nodo actual
-        expandir_nodo(grafo, nodo_actual, debug)
+        # Expande el nodo actual usando la tienda actual
+        expandir_nodo(grafo, nodo_actual, tienda_actual, debug)
 
         # Expande cada nodo vecino
         for arista in grafo.obtener_vecinos(nodo_actual):
@@ -48,6 +50,10 @@ def busqueda_a_estrella(grafo, nodo_inicial, nodo_objetivo, debug=False):
     return None
 
 def reconstruir_camino(padres, nodo_final):
+    """
+    Reconstruye el camino desde el nodo inicial hasta el nodo final utilizando el diccionario de padres.
+
+    """
     camino = []
     nodo = nodo_final
     while nodo:

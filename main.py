@@ -29,7 +29,7 @@ grafo = Grafo()
 grafo.agregar_nodo(nodo_inicial)
 
 # Ejecutar búsqueda A* con opción de depuración activada o desactivada
-debug_mode = False  # Cambia a True para activar la depuración
+debug_mode = True  # Cambia a True para activar la depuración
 camino_optimo = busqueda_a_estrella(grafo, nodo_inicial, nodo_objetivo, debug=debug_mode)
 
 # Mostrar resultados
